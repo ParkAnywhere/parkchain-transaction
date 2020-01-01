@@ -4,8 +4,8 @@ import { IBusinessData } from "../interfaces";
 
 const { schemas } = Transactions;
 
-const BUSINESS_REGISTRATION_TYPE = 100;
-const BUSINESS_REGISTRATION_TYPE_GROUP = 1001;
+const BUSINESS_REGISTRATION_TYPE = 1;
+const BUSINESS_REGISTRATION_TYPE_GROUP = 1002;
 
 export class ParkhouseRegistrationTransaction extends Transactions.Transaction {
     public static typeGroup: number = BUSINESS_REGISTRATION_TYPE_GROUP;
@@ -15,10 +15,10 @@ export class ParkhouseRegistrationTransaction extends Transactions.Transaction {
     public static getSchema(): Transactions.schemas.TransactionSchema {
         return schemas.extend(schemas.transactionBaseSchema, {
             $id: "businessData",
-            required: ["asset", "typeGroup"],
+            required: ["asset", "type", "typeGroup"],
             properties: {
                 type: { transactionType: BUSINESS_REGISTRATION_TYPE },
-                typeGroup: { const: 1001 },
+                typeGroup: { const: BUSINESS_REGISTRATION_TYPE_GROUP },
                 amount: { bignumber: { minimum: 0, maximum: 0 } },
                 asset: {
                     type: "object",

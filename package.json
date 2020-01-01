@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@learn-ark/dapp-core-module-gti-template",
+  "name": "@parkchain/parkchain-transaction",
   "description": "Provides custom transaction implementation template for ARK Core",
   "version": "0.0.1",
   "contributors": [

@@ -12,7 +12,7 @@ describe("Test builder",()=>{
 
         const builder = new ParkhouseRegistrationBuilder();
         const actual = builder
-            .businessData("google","www.google.com")
+            .parkhouseData("google","www.google.com")
             .nonce("3")
             .sign("clay harbor enemy utility margin pretty hub comic piece aerobic umbrella acquire");
 
