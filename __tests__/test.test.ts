@@ -1,16 +1,16 @@
 import "jest-extended";
 
 import { Managers, Transactions } from "@arkecosystem/crypto";
-import { BusinessRegistrationBuilder } from "../src/builders";
-import { BusinessRegistrationTransaction } from "../src/transactions";
+import { ParkhouseRegistrationBuilder } from "../src/builders";
+import { ParkhouseRegistrationTransaction } from "../src/transactions";
 
 describe("Test builder",()=>{
 
     it("Should verify correctly", ()=> {
         Managers.configManager.setFromPreset("testnet");
-        Transactions.TransactionRegistry.registerTransactionType(BusinessRegistrationTransaction);
+        Transactions.TransactionRegistry.registerTransactionType(ParkhouseRegistrationTransaction);
 
-        const builder = new BusinessRegistrationBuilder();
+        const builder = new ParkhouseRegistrationBuilder();
         const actual = builder
             .businessData("google","www.google.com")
             .nonce("3")

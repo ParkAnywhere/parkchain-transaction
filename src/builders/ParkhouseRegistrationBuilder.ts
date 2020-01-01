@@ -1,18 +1,18 @@
 import { Interfaces, Transactions, Utils } from "@arkecosystem/crypto";
-import { BusinessRegistrationTransaction } from "../transactions";
+import { ParkhouseRegistrationTransaction } from "../transactions";
 
-export class BusinessRegistrationBuilder extends Transactions.TransactionBuilder<BusinessRegistrationBuilder> {
+export class ParkhouseRegistrationBuilder extends Transactions.TransactionBuilder<ParkhouseRegistrationBuilder> {
     constructor() {
         super();
-        this.data.type = BusinessRegistrationTransaction.type;
-        this.data.typeGroup = BusinessRegistrationTransaction.typeGroup;
+        this.data.type = ParkhouseRegistrationTransaction.type;
+        this.data.typeGroup = ParkhouseRegistrationTransaction.typeGroup;
         this.data.version = 2;
         this.data.fee = Utils.BigNumber.make("5000000000");
         this.data.amount = Utils.BigNumber.ZERO;
         this.data.asset = { businessData: {} };
     }
 
-    public businessData(name: string, website: string): BusinessRegistrationBuilder {
+    public businessData(name: string, website: string): ParkhouseRegistrationBuilder {
         this.data.asset.businessData = {
             name,
             website,
@@ -28,7 +28,7 @@ export class BusinessRegistrationBuilder extends Transactions.TransactionBuilder
         return struct;
     }
 
-    protected instance(): BusinessRegistrationBuilder {
+    protected instance(): ParkhouseRegistrationBuilder {
         return this;
     }
 }

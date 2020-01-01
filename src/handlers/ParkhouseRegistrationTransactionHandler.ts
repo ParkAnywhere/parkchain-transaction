@@ -3,11 +3,11 @@ import { Handlers, TransactionReader } from "@arkecosystem/core-transactions";
 import { Interfaces, Managers, Transactions } from "@arkecosystem/crypto";
 import { BusinessRegistrationAssetError, WalletIsAlreadyABusiness } from "../errors";
 import { IBusinessData } from "../interfaces";
-import { BusinessRegistrationTransaction } from "../transactions";
+import { ParkhouseRegistrationTransaction } from "../transactions";
 
-export class BusinessRegistrationTransactionHandler extends Handlers.TransactionHandler {
+export class ParkhouseRegistrationTransactionHandler extends Handlers.TransactionHandler {
     public getConstructor(): Transactions.TransactionConstructor {
-        return BusinessRegistrationTransaction;
+        return ParkhouseRegistrationTransaction;
     }
 
     public dependencies(): ReadonlyArray<Handlers.TransactionHandlerConstructor> {

@@ -7,7 +7,7 @@ const { schemas } = Transactions;
 const BUSINESS_REGISTRATION_TYPE = 100;
 const BUSINESS_REGISTRATION_TYPE_GROUP = 1001;
 
-export class BusinessRegistrationTransaction extends Transactions.Transaction {
+export class ParkhouseRegistrationTransaction extends Transactions.Transaction {
     public static typeGroup: number = BUSINESS_REGISTRATION_TYPE_GROUP;
     public static type: number = BUSINESS_REGISTRATION_TYPE;
     public static key: string = "business_key";

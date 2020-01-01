@@ -114,7 +114,7 @@ You should receive a response similar to this:
 > You can create more transaction payloads by looking at the `__tests__` folder. In short it is as simple as:
 
 ```typescript
-const builder = new BusinessRegistrationBuilder();
+const builder = new ParkhouseRegistrationBuilder();
         const actual = builder
             .businessData("google","www.google.com")
             .nonce("3")
