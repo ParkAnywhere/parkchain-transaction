@@ -1,14 +1,14 @@
 // tslint:disable:max-classes-per-file
 import { Errors } from "@arkecosystem/core-transactions";
 
-export class BusinessRegistrationAssetError extends Errors.TransactionError {
+export class ParkhouseRegistrationAssetError extends Errors.TransactionError {
   constructor() {
-    super(`Incomplete business registration asset.`);
+    super(`Incomplete parkhouse registration asset.`);
   }
 }
 
-export class WalletIsAlreadyABusiness extends Errors.TransactionError {
+export class WalletIsAlreadyAParkhouse extends Errors.TransactionError {
   constructor() {
-    super(`Wallet is already a business.`);
+    super(`Wallet is already a parkhouse.`);
   }
 }
