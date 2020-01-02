@@ -2,7 +2,7 @@ import { Database, EventEmitter, State, TransactionPool } from "@arkecosystem/co
 import { Handlers, TransactionReader } from "@arkecosystem/core-transactions";
 import { Interfaces, Managers, Transactions } from "@arkecosystem/crypto";
 import { BusinessRegistrationAssetError, WalletIsAlreadyABusiness } from "../errors";
-import { IBusinessData } from "../interfaces";
+import { IParkchainData } from "../interfaces";
 import { ParkhouseRegistrationTransaction } from "../transactions";
 
 export class ParkhouseRegistrationTransactionHandler extends Handlers.TransactionHandler {
@@ -16,7 +16,7 @@ export class ParkhouseRegistrationTransactionHandler extends Handlers.Transactio
 
     public walletAttributes(): ReadonlyArray<string> {
             return [
-                "transactionWalletKeyName",
+                "parkhouseData",
             ];
     }
 
@@ -32,12 +32,13 @@ export class ParkhouseRegistrationTransactionHandler extends Handlers.Transactio
 
             for (const transaction of transactions) {
                 const wallet: State.IWallet = walletManager.findByPublicKey(transaction.senderPublicKey);
-                const asset: IBusinessData = {
+                const asset: IParkchainData = {
                     name: transaction.asset.businessData.name,
                     website: transaction.asset.businessData.website,
+                    streetName: transaction.asset.businessData.streetName
                 };
 
-                wallet.setAttribute<IBusinessData>("transactionWalletKeyName", asset);
+                wallet.setAttribute<IParkchainData>("parkhouseData", asset);
                 walletManager.reindex(wallet);
             }
         }
@@ -55,7 +56,7 @@ export class ParkhouseRegistrationTransactionHandler extends Handlers.Transactio
             throw new BusinessRegistrationAssetError();
         }
 
-        if (wallet.hasAttribute("transactionWalletKeyName")) {
+        if (wallet.hasAttribute("parkhouseData")) {
             throw new WalletIsAlreadyABusiness();
         }
 
@@ -111,7 +112,7 @@ export class ParkhouseRegistrationTransactionHandler extends Handlers.Transactio
     ): Promise<void> {
         await super.applyToSender(transaction, walletManager);
         const sender: State.IWallet = walletManager.findByPublicKey(transaction.data.senderPublicKey);
-        sender.setAttribute<IBusinessData>("transactionWalletKeyName", transaction.data.asset.businessData);
+        sender.setAttribute<IParkchainData>("parkhouseData", transaction.data.asset.businessData);
         walletManager.reindex(sender);
     }
 
@@ -121,7 +122,7 @@ export class ParkhouseRegistrationTransactionHandler extends Handlers.Transactio
     ): Promise<void> {
         await super.revertForSender(transaction, walletManager);
         const sender: State.IWallet = walletManager.findByPublicKey(transaction.data.senderPublicKey);
-        sender.forgetAttribute("transactionWalletKeyName");
+        sender.forgetAttribute("parkhouseData");
         walletManager.reindex(sender);
     }
 

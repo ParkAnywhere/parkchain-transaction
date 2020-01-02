@@ -12,10 +12,11 @@ export class ParkhouseRegistrationBuilder extends Transactions.TransactionBuilde
         this.data.asset = { businessData: {} };
     }
 
-    public parkhouseData(name: string, website: string): ParkhouseRegistrationBuilder {
-        this.data.asset.businessData = {
+    public parkhouseData(name: string, website: string, streetName: string): ParkhouseRegistrationBuilder {
+        this.data.asset.parkhouseData = {
             name,
             website,
+            streetName
         };
 
         return this;
