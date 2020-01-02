@@ -9,6 +9,7 @@ describe("Test builder",()=>{
     it("Should verify correctly", ()=> {
         Managers.configManager.setFromPreset("testnet");
         Transactions.TransactionRegistry.registerTransactionType(ParkhouseRegistrationTransaction);
+        Managers.configManager.setHeight(2);
 
         const builder = new ParkhouseRegistrationBuilder();
         const actual = builder

@@ -1,6 +1,6 @@
 import { Transactions, Utils } from "@arkecosystem/crypto";
 import ByteBuffer from "bytebuffer";
-import { IParkchainData } from "../interfaces";
+import { IParkhouseData } from "../interfaces";
 
 const { schemas } = Transactions;
 
@@ -22,9 +22,9 @@ export class ParkhouseRegistrationTransaction extends Transactions.Transaction {
                 amount: { bignumber: { minimum: 0, maximum: 0 } },
                 asset: {
                     type: "object",
-                    required: ["businessData"],
+                    required: ["parkhouseData"],
                     properties: {
-                        businessData: {
+                        parkhouseData: {
                             type: "object",
                             required: ["name", "website", "streetName"],
                             properties: {
@@ -41,7 +41,7 @@ export class ParkhouseRegistrationTransaction extends Transactions.Transaction {
                                 streetName: {
                                     type: "string",
                                     minLength: 3,
-                                    maxLength: 20,
+                                    maxLength: 40,
                                 },
                             },
                         },
@@ -56,13 +56,17 @@ export class ParkhouseRegistrationTransaction extends Transactions.Transaction {
     public serialize(): ByteBuffer {
         const { data } = this;
 
-        const parkchainData = data.asset.parkchainData as IParkchainData;
+        const parkhouseData = data.asset.parkhouseData as IParkhouseData;
 
-        const nameBytes = Buffer.from(parkchainData.name, "utf8");
-        const websiteBytes = Buffer.from(parkchainData.website, "utf8");
-        const streetNameBytes = Buffer.from(parkchainData.streetName, "utf8");
+        const nameBytes = Buffer.from(parkhouseData.name, "utf8");
+        const websiteBytes = Buffer.from(parkhouseData.website, "utf8");
+        const streetNameBytes = Buffer.from(parkhouseData.streetName, "utf8");
 
-        const buffer = new ByteBuffer(nameBytes.length + websiteBytes.length + streetNameBytes.length + 3, true);
+        const buffer = new ByteBuffer(
+            nameBytes.length
+            + websiteBytes.length
+            + streetNameBytes.length
+            + 3, true);
 
         buffer.writeUint8(nameBytes.length);
         buffer.append(nameBytes, "hex");
@@ -78,19 +82,19 @@ export class ParkhouseRegistrationTransaction extends Transactions.Transaction {
 
     public deserialize(buf: ByteBuffer): void {
         const { data } = this;
-        const parkchainData = {} as IParkchainData;
+        const parkhouseData = {} as IParkhouseData;
 
         const nameLength = buf.readUint8();
-        parkchainData.name = buf.readString(nameLength);
+        parkhouseData.name = buf.readString(nameLength);
 
         const websiteLength = buf.readUint8();
-        parkchainData.website = buf.readString(websiteLength);
+        parkhouseData.website = buf.readString(websiteLength);
 
         const streetNameLength = buf.readUint8();
-        parkchainData.streetName = buf.readString(streetNameLength);
+        parkhouseData.streetName = buf.readString(streetNameLength);
 
         data.asset = {
-            businessData: parkchainData,
+            parkhouseData,
         };
     }
 }

@@ -2,7 +2,7 @@ import { Database, EventEmitter, State, TransactionPool } from "@arkecosystem/co
 import { Handlers, TransactionReader } from "@arkecosystem/core-transactions";
 import { Interfaces, Managers, Transactions } from "@arkecosystem/crypto";
 import { ParkhouseRegistrationAssetError, WalletIsAlreadyAParkhouse } from "../errors";
-import { IParkchainData } from "../interfaces";
+import { IParkhouseData } from "../interfaces";
 import { ParkhouseRegistrationTransaction } from "../transactions";
 
 export class ParkhouseRegistrationTransactionHandler extends Handlers.TransactionHandler {
@@ -32,13 +32,13 @@ export class ParkhouseRegistrationTransactionHandler extends Handlers.Transactio
 
             for (const transaction of transactions) {
                 const wallet: State.IWallet = walletManager.findByPublicKey(transaction.senderPublicKey);
-                const asset: IParkchainData = {
+                const asset: IParkhouseData = {
                     name: transaction.asset.businessData.name,
                     website: transaction.asset.businessData.website,
                     streetName: transaction.asset.businessData.streetName
                 };
 
-                wallet.setAttribute<IParkchainData>("parkhouseData", asset);
+                wallet.setAttribute<IParkhouseData>("parkhouseData", asset);
                 walletManager.reindex(wallet);
             }
         }
@@ -87,7 +87,7 @@ export class ParkhouseRegistrationTransactionHandler extends Handlers.Transactio
     ): Promise<void> {
         await super.applyToSender(transaction, walletManager);
         const sender: State.IWallet = walletManager.findByPublicKey(transaction.data.senderPublicKey);
-        sender.setAttribute<IParkchainData>("parkhouseData", transaction.data.asset.businessData);
+        sender.setAttribute<IParkhouseData>("parkhouseData", transaction.data.asset.businessData);
         walletManager.reindex(sender);
     }
 

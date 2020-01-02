@@ -9,7 +9,7 @@ export class ParkhouseRegistrationBuilder extends Transactions.TransactionBuilde
         this.data.version = 2;
         this.data.fee = Utils.BigNumber.make("5000000000");
         this.data.amount = Utils.BigNumber.ZERO;
-        this.data.asset = { businessData: {} };
+        this.data.asset = { parkhouseData: {} };
     }
 
     public parkhouseData(name: string, website: string, streetName: string): ParkhouseRegistrationBuilder {
