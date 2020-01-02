@@ -78,7 +78,7 @@ export class ParkhouseRegistrationTransactionHandler extends Handlers.Transactio
             return err;
         }
 
-        return null;
+        return undefined;
     }
 
     public async applyToSender(
