@@ -13,7 +13,7 @@ describe("Test builder",()=>{
 
         const builder = new ParkhouseRegistrationBuilder();
         const actual = builder
-            .parkhouseData("google","www.google.com", "Koroška cesta 30")
+            .parkhouseData("google","www.google.com", "Koroska cesta 30")
             .nonce("3")
             .sign("clay harbor enemy utility margin pretty hub comic piece aerobic umbrella acquire");
 

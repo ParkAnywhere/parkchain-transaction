@@ -4,21 +4,21 @@ import { IParkhouseData } from "../interfaces";
 
 const { schemas } = Transactions;
 
-const BUSINESS_REGISTRATION_TYPE = 1;
-const BUSINESS_REGISTRATION_TYPE_GROUP = 1002;
+const PARKHOUSE_REGISTRATION_TYPE = 1;
+const PARKHOUSE_REGISTRATION_TYPE_GROUP = 1002;
 
 export class ParkhouseRegistrationTransaction extends Transactions.Transaction {
-    public static typeGroup: number = BUSINESS_REGISTRATION_TYPE_GROUP;
-    public static type: number = BUSINESS_REGISTRATION_TYPE;
-    public static key: string = "business_key";
+    public static typeGroup: number = PARKHOUSE_REGISTRATION_TYPE_GROUP;
+    public static type: number = PARKHOUSE_REGISTRATION_TYPE;
+    public static key: string = "parkhouse_key";
 
     public static getSchema(): Transactions.schemas.TransactionSchema {
         return schemas.extend(schemas.transactionBaseSchema, {
             $id: "businessData",
             required: ["asset", "type", "typeGroup"],
             properties: {
-                type: { transactionType: BUSINESS_REGISTRATION_TYPE },
-                typeGroup: { const: BUSINESS_REGISTRATION_TYPE_GROUP },
+                type: { transactionType: PARKHOUSE_REGISTRATION_TYPE },
+                typeGroup: { const: PARKHOUSE_REGISTRATION_TYPE_GROUP },
                 amount: { bignumber: { minimum: 0, maximum: 0 } },
                 asset: {
                     type: "object",
@@ -69,13 +69,13 @@ export class ParkhouseRegistrationTransaction extends Transactions.Transaction {
             + 3, true);
 
         buffer.writeUint8(nameBytes.length);
-        buffer.append(nameBytes, "hex");
+        buffer.append(nameBytes, "utf8");
 
         buffer.writeUint8(websiteBytes.length);
-        buffer.append(websiteBytes, "hex");
+        buffer.append(websiteBytes, "utf8");
 
         buffer.writeUint8(streetNameBytes.length);
-        buffer.append(streetNameBytes, "hex");
+        buffer.append(streetNameBytes, "utf8");
 
         return buffer;
     }
