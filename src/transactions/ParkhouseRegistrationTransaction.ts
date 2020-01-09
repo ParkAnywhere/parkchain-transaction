@@ -85,13 +85,13 @@ export class ParkhouseRegistrationTransaction extends Transactions.Transaction {
         const parkhouseData = {} as IParkhouseData;
 
         const nameLength = buf.readUint8();
-        parkhouseData.name = buf.readString(nameLength);
+        parkhouseData.name = buf.readBytes(nameLength).toBuffer().toString("utf8");
 
         const websiteLength = buf.readUint8();
         parkhouseData.website = buf.readString(websiteLength);
 
         const streetNameLength = buf.readUint8();
-        parkhouseData.streetName = buf.readString(streetNameLength);
+        parkhouseData.streetName = buf.readBytes(streetNameLength).toBuffer().toString("utf8");
 
         data.asset = {
             parkhouseData,
